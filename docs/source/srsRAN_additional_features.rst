@@ -147,6 +147,41 @@ Make sure the network adapter is visible.
 	ping 192.168.10.2
 	uhd_find_devices
 
+Starting EPC/NodeB/UE(s)
+================================================
+
+
+1. In a new command windows run srsRAN EPC:
+
+.. code-block:: rst
+
+        sudo srsepc
+
+2. In a new command windows run srsRAN eNodeB.
+
+.. code-block:: rst
+
+        sudo srsenb
+	
+
+3. In a new command windows run UE, placing its network interface into a separate network namespace:
+
+Creating Namespace:
+.. code-block:: rst
+
+        sudo ip netns add ue1
+
+Run srsUE with the new assigned namespace
+.. code-block:: rst
+        sudo srsue --gw.netns=ue1
+	
+Send some simple signaling-like traffic from UE to EPC, Perform commands from ue1:
+.. code-block:: rst
+        sudo ip netns exec ue1 ping 172.16.0.1
+
+
+
+
 Now you should be able to ping the USRP from the VM
 
 
